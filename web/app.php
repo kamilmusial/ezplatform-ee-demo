@@ -8,6 +8,8 @@ setlocale(LC_CTYPE, 'C.UTF-8');
 
 // Environment is taken from "SYMFONY_ENV" variable, if not set, defaults to "prod"
 $environment = getenv('SYMFONY_ENV');
+$environment = 'dev';
+$environment = 'prod';
 if ($environment === false) {
     $environment = 'prod';
 }

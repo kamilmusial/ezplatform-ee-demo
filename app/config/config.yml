@@ -48,9 +48,10 @@ framework:
     default_locale:  "%locale_fallback%"
     trusted_hosts:   ~
     session:
-        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
-        handler_id:  session.handler.native_file
-        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+#        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+        save_path:   "/var/lib/php/sessions"
         # Note: eZ Publish also allows session name and session cookie configuration to be per SiteAccess, by
         #       default session name will be set to "eZSESSID{siteaccess_hash}" (unique session name per siteaccess)
         #       Further reading on sessions: https://doc.ez.no/display/DEVELOPER/Sessions
@@ -69,8 +70,78 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: "%kernel.debug%"
+    bundles:        [ eZStudioDemoBundle, EzSystemsPersonalizedBlockBundle ]
+    #java: /usr/bin/java
     filters:
         cssrewrite: ~
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+    assets:
+        bootstrap_glyphicons_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/bootstrap/fonts/glyphicons-halflings-regular.eot"
+            output: "fonts/glyphicons-halflings-regular.eot"
+        bootstrap_glyphicons_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/bootstrap/fonts/glyphicons-halflings-regular.svg"
+            output: "fonts/glyphicons-halflings-regular.svg"
+        bootstrap_glyphicons_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/bootstrap/fonts/glyphicons-halflings-regular.ttf"
+            output: "fonts/glyphicons-halflings-regular.ttf"
+        bootstrap_glyphicons_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/bootstrap/fonts/glyphicons-halflings-regular.woff"
+            output: "fonts/glyphicons-halflings-regular.woff"
+        bootstrap_glyphicons_woff2:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/bootstrap/fonts/glyphicons-halflings-regular.woff2"
+            output: "fonts/glyphicons-halflings-regular.woff2"
+        demo_css:
+            inputs:
+            - '%kernel.root_dir%/../vendor/components/bootstrap/css/bootstrap.min.css'
+            - 'bundles/ezstudiodemo/css/studiodemo.css'
+            - 'bundles/ezstudiodemo/css/responsive.css'
+            - 'bundles/ezstudiodemo/css/user_forms.css'
+            - 'bundles/ezstudiodemo/css/content_types/subscribe.css'
+            - 'bundles/ezstudiodemo/css/content_types/about.css'
+            - 'bundles/ezstudiodemo/css/content_types/blog.css'
+            - 'bundles/ezstudiodemo/css/content_types/blog_post.css'
+            - 'bundles/ezstudiodemo/css/content_types/place.css'
+            - 'bundles/ezstudiodemo/css/content_types/article.css'
+            - 'bundles/ezstudiodemo/css/content_types/place_list.css'
+            - 'bundles/ezstudiodemo/css/content_types/product_list.css'
+            - 'bundles/ezstudiodemo/css/content_types/folder.css'
+            - 'bundles/ezstudiodemo/css/content_types/product.css'
+            - 'bundles/ezstudiodemo/css/blocks/contentlist.css'
+            - 'bundles/ezstudiodemo/css/blocks/rss.css'
+            - 'bundles/ezstudiodemo/css/blocks/banner.css'
+            - 'bundles/ezstudiodemo/css/blocks/gallery.css'
+            - 'bundles/ezstudiodemo/css/blocks/embed.css'
+            - 'bundles/ezstudiodemo/css/blocks/keyword.css'
+            - 'bundles/ezstudiodemo/css/blocks/embed.css'
+            - 'bundles/ezstudiodemo/css/blocks/keyword.css'
+            - 'bundles/ezstudiodemo/css/personalized.css'
+            - 'bundles/ezsystemsformbuilder/css/vendors/*/*.css'
+        demo_js:
+            inputs:
+                - '%kernel.root_dir%/../vendor/components/jquery/jquery.min.js'
+                - '%kernel.root_dir%/../vendor/components/bootstrap/js/bootstrap.min.js'
+                - '%kernel.root_dir%/../vendor/components/handlebars.js/handlebars.min.js'
+                - 'bundles/ezsystemsrecommendation/js/*'
+                - 'bundles/ezsystemspersonalizedblock/js/*'
+                - 'bundles/ezsystemsformbuilder/js/vendors/*/*.js'
+        admin_css:
+            inputs:
+                - '$css.files;ez_platformui$'
+        admin_js:
+            inputs:
+                - '$javascript.files;ez_platformui$'
+                - 'bundles/bazingajstranslation/js/translator.min.js'
+                - 'bundles/ezplatformuiassets/vendors/yui3/build/yui/yui-min.js'
+                - 'bundles/ezplatformuiassets/vendors/handlebars-helper-intl/dist/handlebars-intl.min.js'
 
 # Swiftmailer Configuration
 swiftmailer:
